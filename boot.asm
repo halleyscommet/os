@@ -12,7 +12,7 @@ start:
     call print ; call the print "function"
 
     mov ah, 0x02 ; read sectors mode of bios
-    mov al, 1 ; number of sectors to read
+    mov al, 10 ; number of sectors to read
     ; this is pretty much obsolete stuff i think, something about how hdds are made
     mov ch, 0 ; cylinder 0
     mov cl, 2 ; 2nd sector, because the bootloader is 1

@@ -1,9 +1,7 @@
+#include "vga.h"
+
 void kmain() {
-    char *vga = (char*)0xB8000;
-    const char *msg = "Hello from C!";
-    for (int i = 0; msg[i] != 0; i++) {
-        vga[i * 2] = msg[i];
-        vga[i * 2 + 1] = 0x0F;
-    }
+    uint8_t color = vga_make_color(VGA_WHITE, VGA_BLACK);
+    vga_clear(color);
     while (1);
 }
