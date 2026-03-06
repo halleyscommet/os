@@ -1,4 +1,4 @@
-.vscode/
+.vscode
 boot.bin
 kernel_entry.o
 kernel.bin
