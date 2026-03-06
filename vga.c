@@ -13,6 +13,18 @@ static inline uint16_t vga_entry(char c, uint8_t color) {
     return (uint16_t)c | (uint16_t)color << 8;
 }
 
+static inline void outb(uint16_t port, uint8_t value) {
+    __asm__ volatile ("outb %0, %1" : : "a"(value), "Nd"(port));
+}
+
+static void vga_update_cursor() {
+    uint16_t pos = cursor_row * VGA_WIDTH + cursor_col;
+    outb(0x3D4, 0x0F);
+    outb(0x3D5, (uint8_t)(pos & 0xFF));
+    outb(0x3D4, 0x0E);
+    outb(0x3D5, (uint8_t)(pos >> 8));
+}
+
 void vga_clear(uint8_t color) {
     uint16_t *vga = VGA_MEMORY;
 
@@ -22,6 +34,8 @@ void vga_clear(uint8_t color) {
 
     cursor_row = 0;
     cursor_col = 0;
+
+    vga_update_cursor();
 }
 
 static void vga_scroll() {
@@ -62,6 +76,8 @@ void vga_putchar(char c, uint8_t color) {
     if (cursor_row >= VGA_HEIGHT) {
         vga_scroll();
     }
+
+    vga_update_cursor();
 }
 
 void vga_print(const char *str, uint8_t color) {
