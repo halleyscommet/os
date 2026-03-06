@@ -16,9 +16,9 @@ start:
     call print_newline
 
     call read_keys
-    mov si, buffer
-    call print_newline
-    call print
+    mov si, buffer ; copy the buffer into si so we can print it out
+    call print_newline ; make a new line so that its not on the same line they typed it
+    call print ; print it! yay!
 
     jmp $
 
