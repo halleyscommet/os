@@ -1,0 +1,7 @@
+.vscode/
+boot.bin
+kernel_entry.o
+kernel.bin
+kernel.elf
+kernel.o
+os.img
